@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+  <head>
+    <b:skin><![CDATA[
+    .popular-posts-snippet .snippet-fade{
+    background:-webkit-linear-gradient($startSide,$(popularposts.background.color) 0,$(popularposts.background.color) 20%,$(popularposts.background.color.transparent) 100%);
+    background:linear-gradient(to $startSide,$(popularposts.background.color) 0,$(popularposts.background.color) 20%,$(popularposts.background.color.transparent) 100%)
+    }
+    ...
+    </b:skin>
+
+    <b:template-skin>
+      <![CDATA[
+      body#layout .hidden,
+      body#layout .invisible {
+        display: inherit;
+      }
+      body#layout .navigation {
+        display: none;
+      }
+      body#layout .page,
+      body#layout .sidebar_top,
+      body#layout .sidebar_bottom {
+        display: inline-block;
+        left: inherit;
+        position: relative;
+        vertical-align: top;
+      }
+      ...
+      ]]>
+    </b:template-skin>
+
+    <b:defaultmarkups>
+      <b:defaultmarkup type='Common'>
+        <b:includable id='widgetNotAvailableInPreview'>
+          <b:if cond='data:widget.type == &quot;AdSense&quot;'>
+            <div class='vertical-ad-placeholder'>
+              <span><b:message name='messages.adsGoHere'/></span>
+            </div>
+          <b:else/>
+            <b:include name='super.widgetNotAvailableInPreview'/>
+          </b:if>
+        </b:includable>
+      </b:defaultmarkup>
+      ...
+    </b:defaultmarkups>
+
+    <b:include cond='not data:view.isPreview' data='{                         image: data:skin.vars.body_background.image,                         selector: &quot;.bg-photo&quot;,                         imageSizes: [480, 640, 800, 1200, 1600]                      }' name='responsiveImageStyle'/>
+
+    <b:if cond='(data:widgets.AdSense.first or data:blog.adsenseClientId) and not data:blog.adsenseAutoAds'>
+      <script async='async' src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'/>
+    </b:if>
+    ...
+  </body>
+</html>
